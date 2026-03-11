@@ -2,6 +2,14 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Simulator.css'
 
+const CONTACT_DRAFT_KEY = 'contactDraftMessage'
+
+function sendDraftToContact(message) {
+  localStorage.setItem(CONTACT_DRAFT_KEY, message)
+  window.dispatchEvent(new Event('simulator:draft-ready'))
+  window.location.hash = 'contacto'
+}
+
 /* ── Web Simulator ──────────────────────────────────────────── */
 const webSteps = [
   {
@@ -79,6 +87,18 @@ function WebSimulator() {
     return estimate === upper ? `${estimate} días` : `${estimate} a ${upper} días`
   }
 
+  function requestProject() {
+    const summary = [
+      'Hola Isis, quiero este proyecto web:',
+      `- Tipo de pagina: ${answers[0]}`,
+      `- Numero de secciones: ${answers[1]}`,
+      `- Funciones extra: ${answers[2].join(', ') || 'Sin extras'}`,
+      `- Tiempo estimado en simulador: ${getWebEstimate()}`,
+    ].join('\n')
+
+    sendDraftToContact(summary)
+  }
+
   if (done) {
     return (
       <motion.div
@@ -111,7 +131,7 @@ function WebSimulator() {
           Tiempo estimado de realización: <strong>{getWebEstimate()}</strong>
         </p>
         <div className="sim-result__actions">
-          <a href="#contacto" className="sim-btn sim-btn--primary">
+          <a href="#contacto" className="sim-btn sim-btn--primary" onClick={requestProject}>
             Solicitar este proyecto
           </a>
           <button className="sim-btn sim-btn--ghost" onClick={reset}>
@@ -223,6 +243,18 @@ function AutoSimulator() {
     return `${estimate} a ${upper} días`
   }
 
+  function requestAutomation() {
+    const summary = [
+      'Hola Isis, quiero automatizar este flujo:',
+      `- Cuando pasa esto: ${selected.trigger}`,
+      `- Entonces hacer: ${selected.action}`,
+      `- Despues: ${selected.result}`,
+      `- Tiempo estimado en simulador: ${getAutoEstimate()}`,
+    ].join('\n')
+
+    sendDraftToContact(summary)
+  }
+
   return (
     <div className="auto-sim">
       <div className="auto-flow">
@@ -270,7 +302,7 @@ function AutoSimulator() {
           <p className="sim-result__time">
             Tiempo estimado de realización: <strong>{getAutoEstimate()}</strong>
           </p>
-          <a href="#contacto" className="sim-btn sim-btn--primary">
+          <a href="#contacto" className="sim-btn sim-btn--primary" onClick={requestAutomation}>
             Quiero automatizar esto
           </a>
         </motion.div>
@@ -356,6 +388,20 @@ function AppSimulator() {
     return estimate === upper ? `${estimate} días` : `${estimate} a ${upper} días`
   }
 
+  function requestAppProject() {
+    const arch = archMap[answers[1]] || archMap.Web
+    const summary = [
+      'Hola Isis, quiero desarrollar esta app:',
+      `- Para quien: ${answers[0]}`,
+      `- Plataforma: ${answers[1]}`,
+      `- Funciones principales: ${answers[2].join(', ')}`,
+      `- Arquitectura sugerida: Frontend ${arch.frontend}, Backend ${arch.backend}, Base de datos ${arch.db}`,
+      `- Tiempo estimado en simulador: ${getAppEstimate()}`,
+    ].join('\n')
+
+    sendDraftToContact(summary)
+  }
+
   if (done) {
     const arch = archMap[answers[1]] || archMap['Web']
     return (
@@ -387,7 +433,7 @@ function AppSimulator() {
           Tiempo estimado de realización: <strong>{getAppEstimate()}</strong>
         </p>
         <div className="sim-result__actions">
-          <a href="#contacto" className="sim-btn sim-btn--primary">
+          <a href="#contacto" className="sim-btn sim-btn--primary" onClick={requestAppProject}>
             Solicitar desarrollo de app
           </a>
           <button className="sim-btn sim-btn--ghost" onClick={reset}>

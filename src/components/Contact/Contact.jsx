@@ -1,23 +1,78 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
 import './Contact.css'
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+const CONTACT_DRAFT_KEY = 'contactDraftMessage'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    function applyDraft() {
+      const draft = localStorage.getItem(CONTACT_DRAFT_KEY)
+      if (!draft) return
+
+      setForm((prev) => ({ ...prev, message: draft }))
+      setSent(false)
+    }
+
+    applyDraft()
+    window.addEventListener('simulator:draft-ready', applyDraft)
+
+    return () => {
+      window.removeEventListener('simulator:draft-ready', applyDraft)
+    }
+  }, [])
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => {
+    setError('')
+
+    try {
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        throw new Error('Configuracion de EmailJS incompleta.')
+      }
+
+      const sentTime = new Date().toLocaleString('es-CO', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      })
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          title: 'Nuevo mensaje desde tu portafolio',
+          name: form.name,
+          time: sentTime,
+          email: form.email,
+          message: form.message,
+        },
+        {
+          publicKey: EMAILJS_PUBLIC_KEY,
+        },
+      )
+
       setLoading(false)
       setSent(true)
-    }, 1200)
+      setForm({ name: '', email: '', message: '' })
+      localStorage.removeItem(CONTACT_DRAFT_KEY)
+    } catch {
+      setLoading(false)
+      setError('No se pudo enviar el mensaje. Verifica la configuracion de EmailJS e intenta de nuevo.')
+    }
   }
 
   const isValid = form.name.trim() && form.email.trim() && form.message.trim()
@@ -105,6 +160,8 @@ export default function Contact() {
               </motion.div>
             ) : (
               <form className="contact__form" onSubmit={handleSubmit} noValidate>
+                {error ? <p className="contact__error">{error}</p> : null}
+
                 <div className="contact__field">
                   <label htmlFor="name" className="contact__label">Nombre</label>
                   <input

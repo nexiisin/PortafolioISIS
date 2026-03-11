@@ -106,6 +106,16 @@
   gap: 20px;
 }
 
+.contact__error {
+  background: #FEE2E2;
+  color: #B91C1C;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
 .contact__field {
   display: flex;
   flex-direction: column;
