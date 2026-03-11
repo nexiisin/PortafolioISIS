@@ -54,6 +54,31 @@ function WebSimulator() {
     setDone(false)
   }
 
+  function getWebEstimate() {
+    const typeDays = {
+      Landing: 3,
+      Corporativa: 5,
+      'Tienda online': 7,
+    }
+    const sectionDays = {
+      '3 secciones': 0,
+      '5 secciones': 1,
+      '8 secciones': 2,
+    }
+    const extraDays = {
+      Formularios: 2,
+      'Pagos online': 4,
+      'Panel de administración': 9,
+    }
+
+    const base = (typeDays[answers[0]] || 4) + (sectionDays[answers[1]] || 0)
+    const extras = answers[2].reduce((total, extra) => total + (extraDays[extra] || 0), 0)
+    const estimate = Math.min(base + extras, 15)
+    const upper = Math.min(estimate + 1, 15)
+
+    return estimate === upper ? `${estimate} días` : `${estimate} a ${upper} días`
+  }
+
   if (done) {
     return (
       <motion.div
@@ -81,6 +106,9 @@ function WebSimulator() {
         <p className="sim-result__note">
           Basado en tus necesidades, podemos construir una solución a medida.
           ¡Conversemos para darte un presupuesto exacto!
+        </p>
+        <p className="sim-result__time">
+          Tiempo estimado de realización: <strong>{getWebEstimate()}</strong>
         </p>
         <div className="sim-result__actions">
           <a href="#contacto" className="sim-btn sim-btn--primary">
@@ -161,14 +189,39 @@ const autoOptions = {
 
 function AutoSimulator() {
   const [selected, setSelected] = useState({ trigger: null, action: null, result: null })
-  const [showResult, setShowResult] = useState(false)
 
   function pick(key, val) {
     setSelected({ ...selected, [key]: val })
-    setShowResult(false)
   }
 
   const ready = selected.trigger && selected.action && selected.result
+
+  function getAutoEstimate() {
+    const triggerDays = {
+      'Recibo un correo': 1,
+      'Nuevo cliente': 2,
+      'Formulario enviado': 1,
+    }
+    const actionDays = {
+      'Guardar datos': 1,
+      'Crear registro': 2,
+      'Actualizar base de datos': 2,
+    }
+    const resultDays = {
+      'Enviar notificación': 1,
+      'Enviar correo': 1,
+      'Crear tarea automática': 2,
+    }
+
+    const base = 2
+    const estimate = base
+      + (triggerDays[selected.trigger] || 1)
+      + (actionDays[selected.action] || 1)
+      + (resultDays[selected.result] || 1)
+    const upper = Math.min(estimate + 2, 10)
+
+    return `${estimate} a ${upper} días`
+  }
 
   return (
     <div className="auto-sim">
@@ -213,6 +266,9 @@ function AutoSimulator() {
           </div>
           <p className="auto-preview__note">
             Esta automatización puede ayudarte a ahorrar tiempo y reducir tareas manuales.
+          </p>
+          <p className="sim-result__time">
+            Tiempo estimado de realización: <strong>{getAutoEstimate()}</strong>
           </p>
           <a href="#contacto" className="sim-btn sim-btn--primary">
             Quiero automatizar esto
@@ -275,6 +331,31 @@ function AppSimulator() {
     setDone(false)
   }
 
+  function getAppEstimate() {
+    const audienceDays = {
+      Empresa: 12,
+      Clientes: 10,
+      'Uso interno': 8,
+    }
+    const platformDays = {
+      Web: 4,
+      Móvil: 6,
+      Ambos: 9,
+    }
+    const featureDays = {
+      Usuarios: 4,
+      'Base de datos': 3,
+      'Panel administrativo': 5,
+    }
+
+    const base = (audienceDays[answers[0]] || 9) + (platformDays[answers[1]] || 4)
+    const features = answers[2].reduce((total, feature) => total + (featureDays[feature] || 0), 0)
+    const estimate = Math.min(base + features, 25)
+    const upper = Math.min(estimate + 3, 25)
+
+    return estimate === upper ? `${estimate} días` : `${estimate} a ${upper} días`
+  }
+
   if (done) {
     const arch = archMap[answers[1]] || archMap['Web']
     return (
@@ -302,6 +383,9 @@ function AppSimulator() {
             <span className="arch-value">{arch.db}</span>
           </div>
         </div>
+        <p className="sim-result__time">
+          Tiempo estimado de realización: <strong>{getAppEstimate()}</strong>
+        </p>
         <div className="sim-result__actions">
           <a href="#contacto" className="sim-btn sim-btn--primary">
             Solicitar desarrollo de app

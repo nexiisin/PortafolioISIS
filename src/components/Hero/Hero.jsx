@@ -1,5 +1,15 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import './Hero.css'
+
+const navItems = [
+  { id: 'inicio', label: 'Inicio' },
+  { id: 'servicios', label: 'Servicios' },
+  { id: 'proyectos', label: 'Proyectos' },
+  { id: 'simulador', label: 'Simulador' },
+  { id: 'sobre-mi', label: 'Sobre mi' },
+  { id: 'contacto', label: 'Contacto' },
+]
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -15,8 +25,88 @@ function Petal({ style }) {
 }
 
 export default function Hero() {
+  const [activeSection, setActiveSection] = useState('inicio')
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  useEffect(() => {
+    function updateActiveSection() {
+      const scrollY = window.scrollY + 140
+      let current = 'inicio'
+
+      for (const item of navItems) {
+        const section = document.getElementById(item.id)
+        if (!section) continue
+
+        const sectionTop = section.offsetTop
+        const sectionBottom = sectionTop + section.offsetHeight
+
+        if (scrollY >= sectionTop && scrollY < sectionBottom) {
+          current = item.id
+          break
+        }
+      }
+
+      setActiveSection(current)
+    }
+
+    updateActiveSection()
+    window.addEventListener('scroll', updateActiveSection)
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection)
+    }
+  }, [])
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth > 640) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   return (
     <section className="hero" id="inicio">
+      <header className="hero__nav-wrap">
+        <nav className="hero__nav container" aria-label="Navegacion principal">
+          <a href="#inicio" className="hero__nav-brand">Isis</a>
+          <button
+            className={`hero__menu-btn ${isMenuOpen ? 'open' : ''}`}
+            type="button"
+            aria-label="Abrir menu de navegacion"
+            aria-expanded={isMenuOpen}
+            aria-controls="hero-mobile-nav"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+          >
+            <span className="hero__menu-line" />
+            <span className="hero__menu-line" />
+            <span className="hero__menu-line" />
+          </button>
+
+          <div
+            id="hero-mobile-nav"
+            className={`hero__nav-links ${isMenuOpen ? 'open' : ''}`}
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`hero__nav-link ${activeSection === item.id ? 'active' : ''}`}
+                aria-current={activeSection === item.id ? 'page' : undefined}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+      </header>
+
       <div className="hero__petals" aria-hidden="true">
         <Petal style={{ top: '12%', left: '8%', animationDelay: '0s' }} />
         <Petal style={{ top: '25%', right: '10%', animationDelay: '1.2s' }} />

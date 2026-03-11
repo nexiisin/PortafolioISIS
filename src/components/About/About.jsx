@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import './About.css'
+import profilePhoto from '../../assets/Isis.jpg'
 
 const skills = [
   'React', 'JavaScript', 'Node.js', 'Python',
@@ -20,7 +21,7 @@ export default function About() {
           >
             <div className="about__photo-wrap">
               <div className="about__photo-placeholder">
-                <span className="about__photo-initials">ISIS</span>
+                <img src={profilePhoto} alt="Isis" className="about__photo" />
                 <div className="about__photo-ring" aria-hidden="true" />
               </div>
               <div className="about__petals" aria-hidden="true">

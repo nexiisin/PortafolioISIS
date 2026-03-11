@@ -16,7 +16,7 @@ export default function Home() {
       <About />
       <Contact />
       <footer className="home__footer">
-        <p>© {new Date().getFullYear()} Isis · Desarrolladora de Software · Hecho con 💜</p>
+        <p>© {new Date().getFullYear()} Isis · Desarrolladora de Software · </p>
       </footer>
     </main>
   )

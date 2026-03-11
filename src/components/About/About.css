@@ -31,15 +31,14 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   box-shadow: 0 16px 60px rgba(124, 58, 237, 0.3);
 }
 
-.about__photo-initials {
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.1em;
-  user-select: none;
+.about__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .about__photo-ring {

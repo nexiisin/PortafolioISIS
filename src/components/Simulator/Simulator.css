@@ -230,6 +230,19 @@
   max-width: 400px;
 }
 
+.sim-result__time {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+}
+
+.sim-result__time strong {
+  color: var(--color-text);
+}
+
 .sim-result__actions {
   display: flex;
   gap: 12px;

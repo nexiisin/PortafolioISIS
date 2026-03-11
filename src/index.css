@@ -62,6 +62,7 @@ ul {
 
 section {
   padding: 96px 24px;
+  scroll-margin-top: 110px;
 }
 
 .container {

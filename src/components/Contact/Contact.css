@@ -63,6 +63,15 @@
   color: var(--color-text);
 }
 
+.contact__way-link {
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.contact__way-link:hover {
+  color: var(--color-purple);
+}
+
 .contact__petals {
   position: absolute;
   inset: 0;

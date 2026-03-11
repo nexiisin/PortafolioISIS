@@ -45,7 +45,23 @@ export default function Contact() {
                 <span className="contact__way-icon">✉️</span>
                 <div>
                   <p className="contact__way-label">Correo</p>
-                  <p className="contact__way-value">hola@isis.dev</p>
+                  <a className="contact__way-value contact__way-link" href="mailto:isbetsanchez05@gmail.com">
+                    isbetsanchez05@gmail.com
+                  </a>
+                </div>
+              </div>
+              <div className="contact__way">
+                <span className="contact__way-icon">💬</span>
+                <div>
+                  <p className="contact__way-label">WhatsApp</p>
+                  <a
+                    className="contact__way-value contact__way-link"
+                    href="http://wa.me/3219820646"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    wa.me/3219820646
+                  </a>
                 </div>
               </div>
               <div className="contact__way">
