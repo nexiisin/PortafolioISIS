@@ -5,7 +5,7 @@ import profilePhoto from '../../assets/Isis.png'
 const skills = [
   'React', 'JavaScript', 'Node.js', 'Python',
   'PostgreSQL', 'REST APIs', 'Git', 'UI/UX',
-  'HTML', 'CSS', 'TypeScript',
+  'HTML', 'CSS', 'TypeScript', 'vibe coding',
 ]
 
 export default function About() {
@@ -59,7 +59,7 @@ export default function About() {
             </div>
 
             <div className="about__skills">
-              <h3 className="about__skills-title">Tecnologías</h3>
+              <h3 className="about__skills-title">skills</h3>
               <div className="about__skills-list">
                 {skills.map((skill, i) => (
                   <motion.span
