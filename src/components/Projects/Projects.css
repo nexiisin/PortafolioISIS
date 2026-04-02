@@ -1,0 +1,141 @@
+.projects {
+  background: var(--gradient-soft);
+  padding: 96px 24px;
+}
+
+.projects__header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.projects__header .section-subtitle {
+  margin: 0 auto;
+}
+
+.projects__list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.project-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 40px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.project-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.project-card__number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: transparent;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  background-clip: text;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 56px;
+  text-align: center;
+}
+
+.project-card__body {
+  flex: 1;
+}
+
+.project-card__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.project-card__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.project-card__title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.project-card__summary {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.project-card__detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding: 24px;
+  background: var(--gradient-soft);
+  border-radius: var(--radius-md);
+}
+
+.project-card__block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-card__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.project-card__text {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.project-card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-badge {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-purple);
+  background: var(--gradient-soft);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+@media (max-width: 768px) {
+  .project-card {
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px 24px;
+  }
+
+  .project-card__number {
+    font-size: 2rem;
+    width: auto;
+  }
+
+  .project-card__detail {
+    grid-template-columns: 1fr;
+  }
+}

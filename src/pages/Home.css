@@ -1,0 +1,11 @@
+.home {
+  min-height: 100vh;
+}
+
+.home__footer {
+  background: var(--color-text);
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 28px 24px;
+  font-size: 0.9rem;
+}
