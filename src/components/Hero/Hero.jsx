@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import './Hero.css'
+import profilePhoto from '../../assets/Isis.jpeg'
 
 const navItems = [
   { id: 'inicio', label: 'Inicio' },
@@ -116,61 +117,81 @@ export default function Hero() {
       </div>
 
       <div className="hero__content container">
-        <motion.span
-          className="hero__badge"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0}
-        >
-          Disponible para proyectos ✨
-        </motion.span>
+        <div className="hero__intro">
+          <div className="hero__text">
+            <motion.span
+              className="hero__badge"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={0}
+            >
+              Disponible para proyectos ✨
+            </motion.span>
 
-        <motion.h1
-          className="hero__title"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={1}
-        >
-          Hola, soy Isis
-        </motion.h1>
+            <motion.h1
+              className="hero__title"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={1}
+            >
+              Hola, soy Isis
+            </motion.h1>
 
-        <motion.p
-          className="hero__subtitle"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={2}
-        >
-          Desarrolladora de software.
-        </motion.p>
+            <motion.p
+              className="hero__subtitle"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={2}
+            >
+              Desarrolladora de software.
+            </motion.p>
 
-        <motion.p
-          className="hero__description"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={3}
-        >
-          Creo soluciones digitales para personas y empresas que quieren
-          automatizar procesos, lanzar productos online o mejorar su presencia digital.
-        </motion.p>
+            <motion.p
+              className="hero__description"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={3}
+            >
+              Creo soluciones digitales para personas y empresas que quieren
+              automatizar procesos, lanzar productos online o mejorar su presencia digital.
+            </motion.p>
 
-        <motion.div
-          className="hero__cta"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={4}
-        >
-          <a href="#proyectos" className="btn btn--primary">
-            Ver proyectos
-          </a>
-          <a href="#contacto" className="btn btn--outline">
-            Trabajar conmigo
-          </a>
-        </motion.div>
+            <motion.div
+              className="hero__cta"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={4}
+            >
+              <a href="#proyectos" className="btn btn--primary">
+                Ver proyectos
+              </a>
+              <a href="#contacto" className="btn btn--outline">
+                Trabajar conmigo
+              </a>
+              <a href="/hoja-de-vida.pdf" className="btn btn--cv" download>
+                Descargar hoja de vida
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.a
+            href="#sobre-mi"
+            className="hero__photo-link"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={2}
+            aria-label="Ir a la seccion Sobre mi"
+            title="Ver Sobre mi"
+          >
+            <img src={profilePhoto} alt="Foto de Isis" className="hero__photo" />
+          </motion.a>
+        </div>
       </div>
 
       <div className="hero__scroll-indicator" aria-hidden="true">

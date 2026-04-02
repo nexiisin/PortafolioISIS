@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
 import './About.css'
-import profilePhoto from '../../assets/Isis.jpg'
+import profilePhoto from '../../assets/Isis.png'
 
 const skills = [
   'React', 'JavaScript', 'Node.js', 'Python',
   'PostgreSQL', 'REST APIs', 'Git', 'UI/UX',
+  'HTML', 'CSS', 'TypeScript',
 ]
 
 export default function About() {
